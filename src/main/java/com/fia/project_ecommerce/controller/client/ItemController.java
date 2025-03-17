@@ -1,0 +1,32 @@
+package com.fia.project_ecommerce.controller.client;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.fia.project_ecommerce.controller.service.ProductService;
+import com.fia.project_ecommerce.model.Product;
+
+
+
+
+
+@Controller
+public class ItemController {
+    private final ProductService productService;
+    
+    public ItemController(ProductService productService) {
+        this.productService = productService;
+    }
+
+    // 
+    @GetMapping("/product/{id}")
+    public String getMethodName(Model model, @PathVariable long id) {
+        Product pr = this.productService.fetchProductById(id).get();// hứng user được trả về từ service
+        model.addAttribute("product", pr);// truyền dữ liệu từ controller sang view
+        model.addAttribute("id", id);
+        return "client/product/detail";
+    }
+    
+}
