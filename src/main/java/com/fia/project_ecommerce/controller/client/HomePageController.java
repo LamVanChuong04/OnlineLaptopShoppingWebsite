@@ -18,8 +18,8 @@ import com.fia.project_ecommerce.service.UserService;
 
 import org.springframework.web.bind.annotation.PostMapping;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
+
+
 import jakarta.validation.Valid;
 
 
@@ -70,7 +70,6 @@ public class HomePageController {
      }
      @GetMapping("/access-deny")
      public String getDenyPage(Model model) {
- 
          return "client/auth/deny";
      }
  
