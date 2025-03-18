@@ -62,7 +62,7 @@ public class customerSuccessHandler implements AuthenticationSuccessHandler{
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws IOException, ServletException {
-        // TODO Auto-generated method stub
+        
         String targetUrl = determineTargetUrl(authentication);
  
          if (response.isCommitted()) {

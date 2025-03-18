@@ -30,9 +30,6 @@ public class UserService {
         return this.userRepository.findOneByEmail(email);
     }
 
-    public String getHomePage() {
-        return "Hoi Dan IT";
-    }
     // hàm save user sau khi tạo/delete
     public User handleSaveUser(User user) {
         User users = this.userRepository.save(user);

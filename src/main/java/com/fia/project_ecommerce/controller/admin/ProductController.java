@@ -48,7 +48,7 @@ public class ProductController {
      public String handleCreateProduct(
              @ModelAttribute("newProduct") @Valid Product pr,
              BindingResult newProductBindingResult,
-             @RequestParam("hoidanitFile") MultipartFile file) {
+             @RequestParam("uploadFile") MultipartFile file) {
          // validate
          if (newProductBindingResult.hasErrors()) {
              return "admin/product/create";

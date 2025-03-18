@@ -4,7 +4,7 @@
             <div class="row g-4">
                 <div class="col-lg-3">
                     <a href="#">
-                        <h1 class=" mb-0" style="color: #1e86d2;">LAPTOP-DC</h1>
+                        <h1 class=" mb-0" style="color: #1e86d2;">FIEshop</h1>
                         <p class="text-secondary mb-0">Fresh products</p>
                     </a>
                 </div>

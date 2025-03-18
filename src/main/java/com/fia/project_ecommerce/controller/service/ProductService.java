@@ -51,7 +51,7 @@ public class ProductService {
     public cart fetchByUser(User user) {
         return this.cartRepository.findByUser(user);
     }
-    public void handleAddProductToCart(String email, long productId,  HttpSession session) {
+    public void handleAddProductToCart(String email, long productId, HttpSession session) {
         User user = this.userService.getUserByEmail(email);
         if (user != null) {
             // check user đã có Cart chưa ? nếu chưa -> tạo mới
@@ -65,10 +65,8 @@ public class ProductService {
 
                 cart = this.cartRepository.save(otherCart);
             }
-
             // save cart_detail
             // tìm product by id
-
             Optional<Product> productOptional = this.productRepository.findById(productId);
             if (productOptional.isPresent()) {
                 Product realProduct = productOptional.get();
@@ -94,6 +92,38 @@ public class ProductService {
 
         }
     }
-    
+    public void handleRemoveCartDetail(long cartDetailId, HttpSession session) {
+        Optional<cartDetail> cartDetailOptional = this.cartDetailRepository.findById(cartDetailId);
+        if (cartDetailOptional.isPresent()) {
+            cartDetail cartDetail = cartDetailOptional.get();
+
+            cart currentCart = cartDetail.getCart();
+            // delete cart-detail
+            this.cartDetailRepository.deleteById(cartDetailId);
+
+            // update cart
+            if (currentCart.getSum() > 1) {
+                // update current cart
+                int s = currentCart.getSum() - 1;
+                currentCart.setSum(s);
+                session.setAttribute("sum", s);
+                this.cartRepository.save(currentCart);
+            } else {
+                // delete cart (sum = 1)
+                this.cartRepository.deleteById(currentCart.getId());
+                session.setAttribute("sum", 0);
+            }
+        }
+    }
+    public void handleUpdateCartBeforeCheckout(List<cartDetail> cartDetails) {
+        for (cartDetail cartDetail : cartDetails) {
+            Optional<cartDetail> cdOptional = this.cartDetailRepository.findById(cartDetail.getId());
+            if (cdOptional.isPresent()) {
+                cartDetail currentCartDetail = cdOptional.get();
+                currentCartDetail.setQuantity(cartDetail.getQuantity());
+                this.cartDetailRepository.save(currentCartDetail);
+            }
+        }
+    }
 
 }

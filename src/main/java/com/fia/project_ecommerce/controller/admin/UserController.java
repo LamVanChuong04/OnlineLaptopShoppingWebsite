@@ -54,12 +54,6 @@ public class UserController {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
-    @RequestMapping("/")
-    public String  getHomePage(Model model){
-        String test = this.userService.getHomePage();
-        model.addAttribute("test", test);
-        return "hello";
-    }
      // create user
     @GetMapping("/admin/user/create") // GET
     public String getCreateUserPage(Model model) {
@@ -70,7 +64,7 @@ public class UserController {
      public String createUserPage(Model model,
             @ModelAttribute("newUser") @Valid User chuong,
             BindingResult newUserBindingResult,
-            @RequestParam("hoidanitFile") MultipartFile file) {
+            @RequestParam("uploadFile") MultipartFile file) {
         
         List<FieldError> errors = newUserBindingResult.getFieldErrors();
         for (FieldError error : errors) {
