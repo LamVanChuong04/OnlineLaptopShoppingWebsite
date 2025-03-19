@@ -2,14 +2,18 @@ package com.fia.project_ecommerce.controller.service;
 
 import java.util.List;
 import java.util.Optional;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+
 import org.springframework.stereotype.Service;
 
+import com.fia.project_ecommerce.model.Order;
+import com.fia.project_ecommerce.model.OrderDetail;
 import com.fia.project_ecommerce.model.Product;
 import com.fia.project_ecommerce.model.User;
 import com.fia.project_ecommerce.model.cart;
 import com.fia.project_ecommerce.model.cartDetail;
 import com.fia.project_ecommerce.repository.CartRepository;
+import com.fia.project_ecommerce.repository.OrderDetailRepository;
+import com.fia.project_ecommerce.repository.OrderRepository;
 import com.fia.project_ecommerce.repository.ProductRepository;
 import com.fia.project_ecommerce.repository.CartDetailRepository;
 import com.fia.project_ecommerce.service.UserService;
@@ -19,20 +23,25 @@ import jakarta.servlet.http.HttpSession;
 @Service
 public class ProductService {
 
-    private final DaoAuthenticationProvider authProvider;
     private final ProductRepository productRepository;
     private final CartRepository cartRepository;
     private final CartDetailRepository cartDetailRepository;
     private final UserService userService;
+
+    private final OrderRepository orderRepository;
+     private final OrderDetailRepository orderDetailRepository;
     public ProductService(ProductRepository productRepository,
                         CartRepository cartRepository,
                         CartDetailRepository cartDetailRepository,
-                        UserService userService, DaoAuthenticationProvider authProvider) {
+                        UserService userService, 
+                        OrderRepository orderRepository, OrderDetailRepository orderDetailRepository ) {
+        this.orderDetailRepository = orderDetailRepository;
         this.productRepository = productRepository;
         this.cartRepository = cartRepository;
         this.cartDetailRepository = cartDetailRepository;
         this.userService = userService;
-        this.authProvider = authProvider;
+        this.orderRepository = orderRepository;
+
     }
     // tạo product
     public Product createProduct(Product product) {
@@ -81,13 +90,11 @@ public class ProductService {
                     // update số lượng sản phẩm trong giỏ hàng
                     int s = cart.getSum() + 1;
                     cart.setSum(s);
-                    session.setAttribute("sum", s);
-                    
+                    session.setAttribute("sum", s);                   
                 }else{
                     oldDetail.setQuantity(oldDetail.getQuantity() + 1);
                     this.cartDetailRepository.save(oldDetail);
-                }
-                
+                }   
             }
 
         }
@@ -123,6 +130,41 @@ public class ProductService {
                 currentCartDetail.setQuantity(cartDetail.getQuantity());
                 this.cartDetailRepository.save(currentCartDetail);
             }
+        }
+    }
+    // function đặt hàng
+    public void handlerPlaceOrder(User user, HttpSession session, String recieverName, String recieverAddress, String receiverPhone){
+        // create order
+        Order order = new Order();
+        order.setUser(user);
+        order.setReceiverName(recieverName);
+        order.setReceiverAddress(recieverAddress);
+        order.setReceiverPhone(receiverPhone);
+        this.orderRepository.save(order);
+        // step 1: create orderDetail
+        cart cart = this.cartRepository.findByUser(user);
+        if(cart != null){
+            List<cartDetail> cartDetails = cart.getCartDetail();
+
+            if(cartDetails != null){
+                for(cartDetail cd: cartDetails){
+                    OrderDetail od = new OrderDetail();
+                    od.setOrder(order);
+                    od.setProduct(cd.getProduct());
+                    od.setQuantity(cd.getQuantity());
+                    od.setPrice(cd.getPrice());
+
+
+                    this.orderDetailRepository.save(od);
+                }
+            }
+            // step 2: delete cartDetail and cart
+            for(cartDetail cd : cartDetails){
+                this.cartDetailRepository.deleteById(cd.getId());
+            }
+            this.cartRepository.deleteById(cart.getId());
+            // step 3: update session
+            session.setAttribute("sum", 0 );
         }
     }
 

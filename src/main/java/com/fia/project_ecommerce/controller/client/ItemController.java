@@ -117,8 +117,19 @@ public class ItemController {
              @RequestParam("receiverName") String receiverName,
              @RequestParam("receiverAddress") String receiverAddress,
              @RequestParam("receiverPhone") String receiverPhone) {
+        User userCurrent = new User();
          HttpSession session = request.getSession(false);
- 
-         return "redirect:/";
+        long id = (long) session.getAttribute("id");
+        userCurrent.setId(id);
+        this.productService.handlerPlaceOrder(userCurrent, session, receiverName, receiverAddress, receiverPhone);
+
+         return "redirect:/thanks";
      }
+
+     // redirect to thanks sau khi thanh toán thành công
+     @GetMapping("/thanks")
+     public String getThanksPage() {
+         return "client/cart/thanks";
+     }
+ 
 }
