@@ -134,19 +134,29 @@ public class ProductService {
     }
     // function đặt hàng
     public void handlerPlaceOrder(User user, HttpSession session, String recieverName, String recieverAddress, String receiverPhone){
-        // create order
-        Order order = new Order();
-        order.setUser(user);
-        order.setReceiverName(recieverName);
-        order.setReceiverAddress(recieverAddress);
-        order.setReceiverPhone(receiverPhone);
-        this.orderRepository.save(order);
+
         // step 1: create orderDetail
         cart cart = this.cartRepository.findByUser(user);
         if(cart != null){
             List<cartDetail> cartDetails = cart.getCartDetail();
 
             if(cartDetails != null){
+                        // create order
+                Order order = new Order();
+                order.setUser(user);
+                order.setReceiverName(recieverName);
+                order.setReceiverAddress(recieverAddress);
+                order.setReceiverPhone(receiverPhone);
+                this.orderRepository.save(order);
+
+                order.setStatus("PENDING");
+ 
+                 double sum = 0;
+                 for (cartDetail cd : cartDetails) {
+                     sum += cd.getPrice();
+                 }
+                 order.setTotalPrice(sum);
+                 order = this.orderRepository.save(order);
                 for(cartDetail cd: cartDetails){
                     OrderDetail od = new OrderDetail();
                     od.setOrder(order);

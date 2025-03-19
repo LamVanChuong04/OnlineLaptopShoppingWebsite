@@ -28,7 +28,7 @@
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
-                   LAM VAN CHUONG
+                    <%=request.getUserPrincipal().getName().toString()%>
                 </div>
             </nav>
         </div>
