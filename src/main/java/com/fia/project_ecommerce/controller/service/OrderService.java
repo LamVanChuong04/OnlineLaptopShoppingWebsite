@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.fia.project_ecommerce.model.Order;
 import com.fia.project_ecommerce.model.OrderDetail;
+import com.fia.project_ecommerce.model.User;
 import com.fia.project_ecommerce.repository.OrderDetailRepository;
 import com.fia.project_ecommerce.repository.OrderRepository;
 
@@ -51,5 +52,9 @@ public class OrderService {
              currentOrder.setStatus(order.getStatus());
              this.orderRepository.save(currentOrder);
          }
+     }
+
+     public List<Order> fetchOrdersByUser(User user){
+        return this.orderRepository.findByUser(user);
      }
 }

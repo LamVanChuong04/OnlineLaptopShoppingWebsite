@@ -4,8 +4,6 @@ import java.util.List;
 
 
 import org.springframework.stereotype.Service;
-import com.fia.project_ecommerce.controller.admin.OrderController;
-import com.fia.project_ecommerce.controller.admin.ProductController;
 import com.fia.project_ecommerce.model.Role;
 import com.fia.project_ecommerce.model.User;
 import com.fia.project_ecommerce.model.dto.RegisterDTO;

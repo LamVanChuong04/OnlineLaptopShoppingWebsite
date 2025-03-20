@@ -87,7 +87,7 @@ public class UserController {
     @GetMapping("/admin/user")
     public String  getUserPage(Model model){
         List<User> users = this.userService.getAllUsers();
-        model.addAttribute("user1", users);
+        model.addAttribute("users", users);
         return "admin/user/show";
     }
     // lấy thông tin chi tiết user
