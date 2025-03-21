@@ -44,13 +44,12 @@ public class HomePageController {
         this.passwordEncoder = passwordEncoder;
     }
     @GetMapping("/")
-    public String getProduct(Model model,
-            @RequestParam("page") int page) {
-         Pageable pageable = PageRequest.of(page - 1, 4);
-         Page<Product> prs = this.productService.fetchProducts(pageable);
-         List<Product> products = prs.getContent();
-        model.addAttribute("products", products);
+    public String getProduct(Model model) {
+        Pageable pageable = PageRequest.of(0, 12);
+        Page<Product> prs = this.productService.fetchProducts(pageable);
+        List<Product> products = prs.getContent();
 
+        model.addAttribute("products", products);
         return "client/homepage/homepage";
     }
     @GetMapping("/register")
