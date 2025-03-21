@@ -11,7 +11,6 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "order_detail")
 public class OrderDetail {
-    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
