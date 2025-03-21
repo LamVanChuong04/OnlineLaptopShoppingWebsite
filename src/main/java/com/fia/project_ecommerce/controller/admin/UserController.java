@@ -6,7 +6,11 @@ import com.fia.project_ecommerce.model.User;
 import com.fia.project_ecommerce.service.UserService;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -85,17 +89,35 @@ public class UserController {
      }
     // lấy danh sách user
     @GetMapping("/admin/user")
-    public String  getUserPage(Model model){
-        List<User> users = this.userService.getAllUsers();
-        model.addAttribute("users", users);
-        return "admin/user/show";
-    }
+    public String getUserPage(Model model,
+             @RequestParam("page") Optional<String> pageOptional) {
+         int page = 1;
+         try {
+             if (pageOptional.isPresent()) {
+                 // convert from String to int
+                 page = Integer.parseInt(pageOptional.get());
+             } else {
+                 // page = 1
+             }
+         } catch (Exception e) {
+             // page = 1
+             // TODO: handle exception
+         }
+ 
+         Pageable pageable = PageRequest.of(page - 1, 5);
+         Page<User> usersPage = this.userService.getAllUsers(pageable);
+         List<User> users = usersPage.getContent();
+         model.addAttribute("users", users);
+ 
+         model.addAttribute("currentPage", page);
+         model.addAttribute("totalPages", usersPage.getTotalPages());
+         return "admin/user/show";
+     }
     // lấy thông tin chi tiết user
     @GetMapping("/admin/user/{id}")
     public String getUserDetailPage(Model model, @PathVariable long id) {
         User user = this.userService.getUserById(id);// hứng user được trả về từ service
         model.addAttribute("user", user);// truyền dữ liệu từ controller sang view
-        model.addAttribute("id", id);
 
         return "admin/user/detail";
     }
