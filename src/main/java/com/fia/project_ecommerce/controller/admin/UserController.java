@@ -131,26 +131,14 @@ public class UserController {
     }
 
     @PostMapping("/admin/user/update")
-    public String postUpdateUser(Model model, @ModelAttribute("newUser") @Valid User chuong,
-    BindingResult newUserBindingResult,
-    @RequestParam("chuong") MultipartFile file) {
-        
-        if (newUserBindingResult.hasErrors()) {
-            return "admin/user/update";
-        }
-        User currentUser = this.userService.getUserById(chuong.getId());
+    public String postUpdateUser(Model model, @ModelAttribute("newUser") User user) {
+        User currentUser = this.userService.getUserById(user.getId());
         if (currentUser != null) {
-            // update new image
-            if (!file.isEmpty()) {
-                String img = this.uploadService.handleSaveUploadFile(file, "avatar");
-                currentUser.setAvatar(img);
-            }
-            currentUser.setAddress(chuong.getAddress());
-            currentUser.setFullName(chuong.getFullName());
-            currentUser.setPhone(chuong.getPhone());
-            System.out.println("User updated: " + currentUser);
-            
+            currentUser.setAddress(user.getAddress());
+            currentUser.setFullName(user.getFullName());
+            currentUser.setPhone(user.getPhone());
 
+            // bug here
             this.userService.handleSaveUser(currentUser);
         }
         return "redirect:/admin/user";

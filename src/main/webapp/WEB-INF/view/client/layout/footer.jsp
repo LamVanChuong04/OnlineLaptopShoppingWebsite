@@ -55,9 +55,9 @@
                     <h4 class="text-light mb-3">Account</h4>
                     <a class="btn-link" href="">My Account</a>
                     <a class="btn-link" href="">Shop details</a>
-                    <a class="btn-link" href="">Shopping Cart</a>
+                    <a class="btn-link" href="/cart">Shopping Cart</a>
                     
-                    <a class="btn-link" href="">Order History</a>
+                    <a class="btn-link" href="/order_history">Order History</a>
                     
                 </div>
             </div>
