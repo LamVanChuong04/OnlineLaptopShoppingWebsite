@@ -6,14 +6,18 @@ import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.fia.project_ecommerce.controller.service.specification.ProductSpec;
 import com.fia.project_ecommerce.model.Order;
 import com.fia.project_ecommerce.model.OrderDetail;
 import com.fia.project_ecommerce.model.Product;
+
 import com.fia.project_ecommerce.model.User;
 import com.fia.project_ecommerce.model.cart;
 import com.fia.project_ecommerce.model.cartDetail;
+import com.fia.project_ecommerce.model.dto.ProductCriteriaDTO;
 import com.fia.project_ecommerce.repository.CartRepository;
 import com.fia.project_ecommerce.repository.OrderDetailRepository;
 import com.fia.project_ecommerce.repository.OrderRepository;
@@ -50,9 +54,10 @@ public class ProductService {
     public Product createProduct(Product product) {
         return this.productRepository.save(product);
     }
-    public Page<Product> fetchProducts(Pageable page) {
-        return this.productRepository.findAll(page);
-    }
+    
+     public Page<Product> fetchProducts(Pageable page) {
+         return this.productRepository.findAll(page);
+     }
     
     public  void deleteProduct(long id){
         this.productRepository.deleteById(id);
@@ -181,5 +186,67 @@ public class ProductService {
             session.setAttribute("sum", 0 );
         }
     }
+    public Page<Product> fetchProductsWithSpec(Pageable page, ProductCriteriaDTO productCriteriaDTO) {
+        if (productCriteriaDTO.getTarget() == null
+                && productCriteriaDTO.getFactory() == null
+                && productCriteriaDTO.getPrice() == null) {
+            return this.productRepository.findAll(page);
+        }
+
+        Specification<Product> combinedSpec = Specification.where(null);
+
+        if (productCriteriaDTO.getTarget() != null && productCriteriaDTO.getTarget().isPresent()) {
+            Specification<Product> currentSpecs = ProductSpec.matchListTarget(productCriteriaDTO.getTarget().get());
+            combinedSpec = combinedSpec.and(currentSpecs);
+        }
+        if (productCriteriaDTO.getFactory() != null && productCriteriaDTO.getFactory().isPresent()) {
+            Specification<Product> currentSpecs = ProductSpec.matchListFactory(productCriteriaDTO.getFactory().get());
+            combinedSpec = combinedSpec.and(currentSpecs);
+        }
+
+        if (productCriteriaDTO.getPrice() != null && productCriteriaDTO.getPrice().isPresent()) {
+            Specification<Product> currentSpecs = this.buildPriceSpecification(productCriteriaDTO.getPrice().get());
+            combinedSpec = combinedSpec.and(currentSpecs);
+        }
+
+        return this.productRepository.findAll(combinedSpec, page);
+    }
+
+    // case 6
+    public Specification<Product> buildPriceSpecification(List<String> price) {
+        Specification<Product> combinedSpec = Specification.where(null); // disconjunction
+        for (String p : price) {
+            double min = 0;
+            double max = 0;
+
+            // Set the appropriate min and max based on the price range string
+            switch (p) {
+                case "duoi-10-trieu":
+                    min = 1;
+                    max = 10000000;
+                    break;
+                case "10-15-trieu":
+                    min = 10000000;
+                    max = 15000000;
+                    break;
+                case "15-20-trieu":
+                    min = 15000000;
+                    max = 20000000;
+                    break;
+                case "tren-20-trieu":
+                    min = 20000000;
+                    max = 200000000;
+                    break;
+            }
+
+            if (min != 0 && max != 0) {
+                Specification<Product> rangeSpec = ProductSpec.matchMultiplePrice(min, max);
+                combinedSpec = combinedSpec.or(rangeSpec);
+            }
+        }
+
+        return combinedSpec;
+    }
+
 
 }
