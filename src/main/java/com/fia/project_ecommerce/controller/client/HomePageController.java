@@ -1,6 +1,6 @@
 package com.fia.project_ecommerce.controller.client;
 
-import java.net.http.HttpRequest;
+
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -23,7 +23,7 @@ import com.fia.project_ecommerce.service.UserService;
 
 
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -45,7 +45,7 @@ public class HomePageController {
     }
     @GetMapping("/")
     public String getProduct(Model model) {
-        Pageable pageable = PageRequest.of(0, 12);
+        Pageable pageable = PageRequest.of(0, 8);
         Page<Product> prs = this.productService.fetchProducts(pageable);
         List<Product> products = prs.getContent();
 
