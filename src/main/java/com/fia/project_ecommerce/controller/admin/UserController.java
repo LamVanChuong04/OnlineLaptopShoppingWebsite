@@ -19,7 +19,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 //import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 //import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -151,8 +151,8 @@ public class UserController {
         return "admin/user/delete";
     }
     @PostMapping("/admin/user/delete")
-    public String postDeleteUser(Model model, @ModelAttribute("newUser") User hoidanit) {
-        this.userService.deleteAUser(hoidanit.getId());
+    public String postDeleteUser(Model model, @ModelAttribute("newUser") User u) {
+        this.userService.deleteAUser(u.getId());
         return "redirect:/admin/user";
     }
 
