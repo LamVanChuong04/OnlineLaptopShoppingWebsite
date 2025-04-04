@@ -98,7 +98,7 @@
                                                 name="id" />
 
                                             <input class="form-control d-none" type="text" name="quantity"
-                                                id="cartDetail0.quantity" />
+                                                id="cartDetail0.quantity" value="1"/>
                                             <button
                                                 class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
                                                     class="fa fa-shopping-bag me-2 text-primary"></i>
@@ -247,31 +247,31 @@
                                             <ul class="list-unstyled fruite-categorie">
                                                 <li>
                                                     <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Apples</a>
+                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Apple</a>
                                                         <span>(3)</span>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Oranges</a>
+                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Dell</a>
                                                         <span>(5)</span>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Strawbery</a>
+                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Asus</a>
                                                         <span>(2)</span>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Banana</a>
+                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Hp</a>
                                                         <span>(8)</span>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Pumpkin</a>
+                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Lenovo</a>
                                                         <span>(5)</span>
                                                     </div>
                                                 </li>

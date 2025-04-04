@@ -162,13 +162,15 @@
                 newVal = 1;
             }
         }
-
         const input = button.parent().parent().find('input');
         input.val(newVal);
+
         //set form index
         const index = input.attr("data-cart-detail-index")
-        const el = document.getElementById(`cartDetail${index}.quantity`);
+        const el = document.getElementById(`cartDetails${index}.quantity`);
         $(el).val(newVal);
+
+
 
         //get price
         const price = input.attr("data-cart-detail-price");
@@ -205,6 +207,7 @@
             });
         }
     });
+
 
     function formatCurrency(value) {
         // Use the 'vi-VN' locale to format the number according to Vietnamese currency format
@@ -262,10 +265,10 @@
         // Add or update query parameters
         searchParams.set('page', '1');
         searchParams.set('sort', sortValue);
-         //reset
-         searchParams.delete('factory');
-         searchParams.delete('target');
-         searchParams.delete('price');
+        //reset
+        searchParams.delete('factory');
+        searchParams.delete('target');
+        searchParams.delete('price');
         if (factoryArr.length > 0) {
             searchParams.set('factory', factoryArr.join(','));
         }
