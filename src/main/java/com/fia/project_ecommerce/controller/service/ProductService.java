@@ -36,7 +36,7 @@ public class ProductService {
     private final UserService userService;
 
     private final OrderRepository orderRepository;
-     private final OrderDetailRepository orderDetailRepository;
+    private final OrderDetailRepository orderDetailRepository;
     public ProductService(ProductRepository productRepository,
                         CartRepository cartRepository,
                         CartDetailRepository cartDetailRepository,
@@ -59,7 +59,7 @@ public class ProductService {
          return this.productRepository.findAll(page);
      }
     
-    public  void deleteProduct(long id){
+    public void deleteProduct(long id){
         this.productRepository.deleteById(id);
     }
     public Optional<Product> fetchProductById(long id) {
