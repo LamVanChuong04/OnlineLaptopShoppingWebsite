@@ -173,7 +173,6 @@ public class ProductService {
                     od.setQuantity(cd.getQuantity());
                     od.setPrice(cd.getPrice());
 
-
                     this.orderDetailRepository.save(od);
                 }
             }
