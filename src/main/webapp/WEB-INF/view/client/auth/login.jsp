@@ -2,88 +2,78 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
             <!DOCTYPE html>
-            <html lang="en">
+            <html lang="vi">
 
             <head>
-                <meta charset="utf-8" />
-                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-                <meta name="description" content="" />
-                <meta name="author" content="" />
+                <meta charset="UTF-8">
                 <title>Login - FIEshop</title>
-                <link href="/css/styles.css" rel="stylesheet" />
-                <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+                <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.3.0/css/all.css"
+                    crossorigin="anonymous">
+                <link rel="stylesheet" href="/css/demo.css">
             </head>
 
-            <body class="bg-primary">
-                <div id="layoutAuthentication">
-                    <div id="layoutAuthentication_content">
-                        <main>
-                            <div class="container">
-                                <div class="row justify-content-center">
-                                    <div class="col-lg-7">
-                                        <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                            <div class="card-header">
-                                                <h3 class="text-center font-weight-light my-4">Login Account</h3>
-                                            </div>
-                                            <div class="card-body">
-                                                <form method="post" action="/login">
-                                                    <c:if test="${param.error != null}">
-                                                        <div class="my-2" style="color: red;">Invalid email or password.
-                                                        </div>
-                                                    </c:if>
-                                                    <c:if test="${param.logout != null}">
-                                                        <div class="my-2" style="color: green;">Logout success.
-                                                        </div>
-                                                    </c:if>
-                                                    <!-- <c:set var="errorPassword">
-                                                        <errors path="password" cssClass="invalid-feedback" />
-                                                    </c:set>
-                                                    <c:set var="errorEmail">
-                                                        <errors path="email" cssClass="invalid-feedback" />
-                                                    </c:set> -->
-                                                    <div class="form-floating mb-3 ">
-                                                        <input class="form-control " type="email"
-                                                            placeholder="name@example.com" name="username" />
-                                                        <label>Email address</label>
-                                                        <!-- ${errorEmail} -->
-                                                    </div>
-                                                    <div class="form-floating mb-3">
-                                                        <input class="form-control" type="password"
-                                                            placeholder="Password" name="password" />
-                                                        <label>Password</label>
-                                                        <!-- ${errorPassword} -->
-                                                    </div>
-                                                    <div>
-                                                        <input type="hidden" name="${_csrf.parameterName}"
-                                                            value="${_csrf.token}" />
+            <body>
 
-                                                    </div>
-                                                    <div class="mt-4 mb-0">
-                                                        <div class="d-grid">
-                                                            <button class="btn btn-primary btn-block">
-                                                                Login
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="card-footer text-center py-3">
-                                                <div class="small"><a href="/register">Have an account? Go to
-                                                        Register</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                <header class="header">
+                    <div class="container">
+                        <div class="header-left">
+                            <img src="/images/logo.png" alt="Thiên Long" class="logo" />
+                        </div>
+                        <div class="header-center">
+                            <div class="search-box">
+                                <input type="text" placeholder="Tìm kiếm sản phẩm..." />
+                                <button><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                        <div class="header-right">
+                            <div class="header-item">
+                                <i class="fa fa-phone icon-circle"></i>
+                                <div class="info">
+                                    <strong>1900 866 819</strong><br />
+                                    <span>Hỗ trợ khách hàng</span>
                                 </div>
                             </div>
-                        </main>
+                            <div class="header-item">
+                                <i class="fa fa-user icon-circle"></i>
+                                <div class="info">
+                                    <a href="/login"><strong>Đăng nhập</strong></a><br />
+                                    <a href="/register"><span>Đăng ký</span></a>
+                                </div>
+                            </div>
+                            <div class="header-item cart-icon">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span class="cart-badge">0</span>
+                            </div>
+                        </div>
                     </div>
+                </header>
 
+                <div class="login-box">
+                    <h3>ĐĂNG NHẬP</h3>
+                    <form method="post" action="/login" class="login-form">
+                        <c:if test="${param.error != null}">
+                            <div class="alert" style="color: red;">Invalid email or password.</div>
+                        </c:if>
+                        <c:if test="${param.logout != null}">
+                            <div class="alert" style="color: green;">Logout success.</div>
+                        </c:if>
+
+                        <label for="username">Email</label>
+                        <input type="email" id="username" name="username" placeholder="name@example.com" required>
+
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="Password" required>
+
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
+                        <button type="submit">Login</button>
+
+                        <div class="small">
+                            Don't have an account? <a href="/register">Register here</a>
+                        </div>
+                    </form>
                 </div>
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-                    crossorigin="anonymous"></script>
-                <script src="/js/scripts.js"></script>
+
             </body>
 
             </html>
