@@ -7,6 +7,8 @@
             <head>
                 <meta charset="UTF-8">
                 <title>Register - FIEshop</title>
+                <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.3.0/css/all.css"
+                    crossorigin="anonymous">
                 <style>
                     body {
                         margin: 0;
@@ -91,10 +93,110 @@
                     .footer-link a:hover {
                         text-decoration: underline;
                     }
+                    .container {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 10px 40px;
+                        background-color: #fff;
+                    }
+
+                    .logo {
+                        height: 50px;
+                    }
+
+                    .search-box {
+                        display: flex;
+                        align-items: center;
+                        width: 700px;
+                    }
+
+                    .search-box input {
+                        flex: 1;
+                        padding: 8px;
+                        border: 1px solid #ccc;
+                        border-radius: 4px 0 0 4px;
+                    }
+
+                    .search-box button {
+                        padding: 8px 12px;
+                        background-color: #003d99;
+                        color: white;
+                        border: none;
+                        border-radius: 0 4px 4px 0;
+                        cursor: pointer;
+                    }
+
+                    .header-right {
+                        display: flex;
+                        gap: 20px;
+                    }
+
+                    .header-item {
+                        display: flex;
+                        align-items: center;
+                        color: #003366;
+                    }
+
+                    .icon-circle {
+                        background-color: #003d99;
+                        color: #fff;
+                        padding: 10px;
+                        border-radius: 50%;
+                        margin-right: 8px;
+                    }
+
+                    .cart-icon {
+                        position: relative;
+                    }
+
+                    .cart-badge {
+                        position: absolute;
+                        top: -8px;
+                        right: -10px;
+                        background-color: red;
+                        color: #fff;
+                        font-size: 12px;
+                        padding: 2px 6px;
+                        border-radius: 50%;
+                    }
                 </style>
             </head>
 
             <body>
+                <header class="header">
+                    <div class="container">
+                        <div class="header-left">
+                            <img src="/images/logo.png" alt="Thiên Long" class="logo" />
+                        </div>
+                        <div class="header-center">
+                            <div class="search-box">
+                                <input type="text" placeholder="Tìm kiếm sản phẩm..." />
+                                <button><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                        <div class="header-right">
+                            <div class="header-item">
+                                <i class="fa fa-phone icon-circle"></i>
+                                <div class="info">
+                                    <strong>1900 866 819</strong><br />
+                                    <span>Hỗ trợ khách hàng</span>
+                                </div>
+                            </div>
+                            <div class="header-item">
+                                <i class="fa fa-user icon-circle"></i>
+                                <div class="info">
+                                    <a href="/login"><strong>Đăng nhập</strong></a><br />
+                                    <a href="/register"><span>Đăng ký</span></a>
+                                </div>
+                            </div>
+                            <div class="header-item cart-icon">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span class="cart-badge">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </header>
                 <div class="register-container">
                     <h3>CREATE ACCOUNT</h3>
 
