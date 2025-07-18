@@ -1,39 +1,33 @@
-# 💻 Laptop E-commerce Website
+<h1 align="center">
+    🛒 Laptop E-commerce Website 💻
+</h1>
 
-A full-stack web application for selling laptops online. The platform allows users to browse products, view detailed specifications, manage shopping carts, and complete secure checkout. Admins can manage products, orders, and users.
-
-## 🚀 Features
-
-### 🛒 Customer Side
-- Browse laptops by brand, specs, or price
-- View detailed laptop specifications
-- Add products to cart
-- Register & login (JWT authentication)
-- Checkout with address and payment info
-- View order history
-
-### 🛠 Admin Panel
-- Dashboard with metrics
-- Manage product catalog (CRUD)
-- View and process orders
-- Manage users and roles
-
-## 🧱 Tech Stack
-
-### Frontend
-- Bootrap, jsp, css, js
-
-### Backend
-- Java Spring Boot
-- Spring Security (JWT Auth)
-- Spring Data JPA + Hibernate
-- Spring MVC
-- MySQL
-
-### Others
-- Docker (optional)
-- Postman for API testing
-- Swagger UI for API docs
+<h3 align="center">A Full-Stack Web Application for Selling Laptops Online</h3>
 
 
+<br/>
+
+
+
+---
+
+## ⚙️ Tech Stack
+
+<div align="center">
+  <img src="https://skillicons.dev/icons?i=spring,java,mysql,javascript,css" /><br/>
+  <img src="https://skillicons.dev/icons?i=postman,git,github,vscode,bootstrap" />
+</div>
+
+---
+
+## 📦 Features
+
+- 🖥️ View laptops with specs and images  
+- 🛍️ Add to cart, update quantity, remove items  
+- 🧾 Checkout and place orders  
+- 🔒 JWT-based authentication and authorization  
+- 🧑‍💻 Admin panel to manage products & orders  
+- 📱 Responsive design with TailwindCSS  
+
+---
 
